@@ -21,6 +21,7 @@ int main()
     //Open the text file named
     //CSC450_CT5_mod.txt
     std::string fileLocation = "CSC450_CT5_mod5.txt";
+    std::string newFileLoc = "CSC450-CT5-reverse.txt";
     std::ofstream file(fileLocation, std::ios::app);
 
     //Check to see if file did open
@@ -42,18 +43,34 @@ int main()
 
     std::string myText;
     std::string fullText;
-    //Reads the file and saves the new line char
+    //Reads the file to myText it gets appeneded to fullText to have a full file
     while(getline(readFile,myText)){
         fullText.append(myText);
         fullText.append("\n");
     }
     readFile.close();
+    //Clear the string to be used for reversal
+    myText.clear();
+
+    //
     std::cout << fullText << std::endl;
     int length = fullText.size();
 
     //reversal method
     reverseAll(fullText, length, myText);
     std::cout<<myText;
-    std::cout << "Program ending." << std:: endl;
+
+    //Creating a new file to write to in location newFile
+    std::ofstream reverseFile(newFileLoc);
+     //Check to see if file did open
+    if (reverseFile.is_open()){
+        std::cout << "New file is open" << std:: endl;
+    } else {
+        std::cerr <<"Error: Could not open file" << std:: endl;
+    }
+    //Writing to new file
+    reverseFile << myText;
+    reverseFile.close();
+    std::cout << "\nProgram ending." << std:: endl;
     return 0;
 }
